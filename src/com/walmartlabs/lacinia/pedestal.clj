@@ -176,8 +176,8 @@
               (let [body (get-in context [:response :body])]
                 (if (map? body)
                   (-> context
-                      (assoc-in [:response :headers "Content-Type"] "application/json")
-                      (update-in [:response :body] cheshire/generate-string))
+                      (assoc-in [:response :headers "Content-Type"] "application/json;charset=UTF-8")
+                      (update-in [:response :body] #(cheshire/generate-string % {:escape-non-ascii true})))
                   context)))}))
 
 (def body-data-interceptor
